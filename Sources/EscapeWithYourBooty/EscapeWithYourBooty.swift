@@ -4,9 +4,17 @@
     }
 }
 
+extension Character {
+    static let navyShip: Character = "N"
+}
+
 func isThisASafeRoute(in sea: [[Character]]) -> Bool {
     // lets assume that any route with Navy is unsafe
-    sea.contains { row in
-        row.contains("N")
-    }  == false
+    for route in sea {
+        if route.contains(.navyShip) {
+            return false
+        }
+    }
+    
+    return true
 }
