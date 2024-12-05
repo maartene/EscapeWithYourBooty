@@ -1,6 +1,9 @@
 import Testing
 @testable import EscapeWithYourBooty
 
-@Test func example() async throws {
-    // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+@Suite("To make sure we get our bounty safely to shore") struct EscapeWithYourBootyTests {
+    @Test("we should know that a 1x1 sea without any navy is safe") func aSafeRouteOf1x1WithoutNavy() {
+        let sea: [[Character]] = [["X"]]
+        #expect(isThisASafeRoute(in: sea) == true)
+    }
 }

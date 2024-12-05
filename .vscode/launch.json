@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:EscapeWithYourBooty}",
+      "name": "Debug EscapeWithYourBooty",
+      "program": "${workspaceFolder:EscapeWithYourBooty}/.build/debug/EscapeWithYourBooty",
+      "preLaunchTask": "swift: Build Debug EscapeWithYourBooty"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:EscapeWithYourBooty}",
+      "name": "Release EscapeWithYourBooty",
+      "program": "${workspaceFolder:EscapeWithYourBooty}/.build/release/EscapeWithYourBooty",
+      "preLaunchTask": "swift: Build Release EscapeWithYourBooty"
+    }
+  ]
+}

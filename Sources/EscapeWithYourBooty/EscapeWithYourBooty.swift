@@ -3,3 +3,7 @@
         
     }
 }
+
+func isThisASafeRoute(in sea: [[Character]]) -> Bool {
+    true
+}
