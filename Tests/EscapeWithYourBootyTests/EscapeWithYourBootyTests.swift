@@ -6,4 +6,9 @@ import Testing
         let sea: [[Character]] = [["X"]]
         #expect(isThisASafeRoute(in: sea) == true)
     }
+    
+    @Test("we should not take this route, because its unsafe") func anUnsafeRouteOf1x2WithNavy() {
+        let sea: [[Character]] = [["X","N"]]
+        #expect(isThisASafeRoute(in: sea) == false)
+    }
 }

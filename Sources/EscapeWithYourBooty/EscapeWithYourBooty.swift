@@ -5,5 +5,8 @@
 }
 
 func isThisASafeRoute(in sea: [[Character]]) -> Bool {
-    true
+    // lets assume that any route with Navy is unsafe
+    sea.contains { row in
+        row.contains("N")
+    }  == false
 }
