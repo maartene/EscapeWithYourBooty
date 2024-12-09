@@ -10,14 +10,28 @@
 ## 🍅 Pomodoro 1
 
 - ✅ A sea of size 1x1 with only our ship (no navy) -> Safe [X]
-  X -> Safe
+    X -> Safe
 - ✅ An unsafe route with a navy shipp -> Unsafe [X,N]
-  XN -> Unsafe
-- 🚧 A sea of size 2x2 with only our ship (no navy) -> Safe [[X,0],[0,0]]
-  X0
-  00 -> Safe
-
-### Acceptance test
+    XN -> Unsafe
+- ✅ A sea of size 2x2 with only our ship (no navy) -> Safe [[X,0],[0,0]]
+    X0
+    00 -> Safe
+  
+## 🍅 Pomodoro 2
+- 🚧 A safe route with a navy ship
+    Turn 1
+    X0
+    00
+    00
+    N0
+    
+    Turn 2
+    0X
+    00
+    N0
+    00
+    
+## Acceptance test (this is what we're aiming for)
 // Example test of a safe route (that has navy in it)
 // Turn 0
 X00N
@@ -39,3 +53,4 @@ X00N
 0000
 0000
 000N
+// Should return true (since it's safe)
