@@ -18,14 +18,26 @@
     00 -> Safe
   
 ## 🍅 Pomodoro 2
-- 🚧 A safe route with a navy ship with single turn
+- ✅ A safe route with a navy ship with single turn
     Turn 1
     X
     0
     N
     (there's no turn 2)
     
-- 🚧 A safe route with a navy ship with two turns
+- 🚧 An unsafe route with a navy ship
+    Turn 1
+    X0
+    0N
+    (there is no turn two)
+    
+- ⚠️ 
+    Turn 1
+    X0N
+    000
+    000
+    
+- ⚠️
     Turn 1
     X0
     00

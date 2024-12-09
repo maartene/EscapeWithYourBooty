@@ -24,8 +24,10 @@ import Testing
         #expect(isThisASafeRoute(in: sea) == true)
     }
 
-    @Test("we should not take this route, because its unsafe") func anUnsafeRouteOf1x2WithNavy() {
-        let sea: [[Character]] = [["X","N"]]
+    @Test("we should not take this route, because its unsafe", arguments: [
+        [["X","N"]]
+    ])
+    func anUnsafeRouteOf1x2WithNavy(sea: [[Character]]) {
         #expect(isThisASafeRoute(in: sea) == false)
     }
 }
