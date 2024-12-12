@@ -40,6 +40,17 @@
 
 - Ship surroundings are the spaces around a ship
 
+- ✅ Determine the shipsurroundings based on the ship position
+- ✅ Deal with out of bound indexes
+- ✅ Add the full list of possible ship surroundings
+- ✅ Find the ship position instead of hardcoding
+- ⚠️ Refactor test with newly discovered names for things
+- ⚠️ Object Calisthenics --> Extracting  building blocks
+    - Sea as an object
+    - Coordinate as an object
+- ⚠️ For now we assumed that all see rows have the same length
+
+
 - ⚠️ Another unsafe route with a navy ship Turn 1 
     NN
     XN
