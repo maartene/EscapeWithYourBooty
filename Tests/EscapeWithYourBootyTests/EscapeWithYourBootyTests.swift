@@ -35,6 +35,10 @@ import Testing
         [
             ["0", "N"],
             ["X", "0"]
+        ],
+        [
+            ["N", "N"],
+            ["X", "N"]
         ]
     ])
     func anUnsafeRouteOf1x2WithNavy(sea: [[Character]]) {

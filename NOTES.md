@@ -27,17 +27,22 @@
 
 ## 🍅 Pomodoro 3
 
-- 🚧 An unsafe route with a navy ship
+- ✅ An unsafe route with a navy ship
     Turn 1
     X0
     0N
     (there is no turn two)
     
-- ⚠️ Another unsafe route with a navy ship Turn 1 
+- ✅ Another unsafe route with a navy ship Turn 1 
     0N
     X0
     (there is no turn two)
-    
+
+- ⚠️ Another unsafe route with a navy ship Turn 1 
+    NN
+    XN
+    (there is no turn two)
+
 - ⚠️ 
     Turn 1
     X0N
