@@ -24,12 +24,15 @@
     0
     N
     (there's no turn 2)
-    
+
+## 🍅 Pomodoro 3
+
 - 🚧 An unsafe route with a navy ship
     Turn 1
     X0
     0N
     (there is no turn two)
+    We should check for 'patrols', in addition to 'routes'.
     
 - ⚠️ 
     Turn 1
