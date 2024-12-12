@@ -22,15 +22,17 @@ N - The location of a Navy ship
 Example
 
 Here's an array at turn 0 when you will recieve it.
-
+```
 0,N,0,N,0
 0,0,0,0,0
 X,0,N,0,0
+```
 at the end of turn 1 it looks like:
-
+```
 0,0,0,0,0
 0,N,N,N,0
 0,X,0,0,0
+```
 At this point return false as your ship has been caught!
 
 
