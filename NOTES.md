@@ -38,6 +38,8 @@
     X0
     (there is no turn two)
 
+- Ship surroundings are the spaces around a ship
+
 - ⚠️ Another unsafe route with a navy ship Turn 1 
     NN
     XN
