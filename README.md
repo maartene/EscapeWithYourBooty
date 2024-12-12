@@ -53,3 +53,7 @@ The journey of our ship from one side to the other. Moving W -> E?
 
 ## Example unsafe routes
 
+## Term of Art
+- Route: A row in the sea from left to right
+- Patrol: A column in the sea
+

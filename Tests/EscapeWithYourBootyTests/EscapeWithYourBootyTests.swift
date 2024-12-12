@@ -13,9 +13,27 @@ import Testing
     ]) func aSeaWithoutAnyNavyIsSafe(sea: [[Character]]) {
         #expect(isThisASafeRoute(in: sea) == true)
     }
-    
-    @Test("we should not take this route, because its unsafe") func anUnsafeRouteOf1x2WithNavy() {
-        let sea: [[Character]] = [["X","N"]]
+
+    @Test("we can take a route where the navy won't be able to reach us", arguments: [
+        [
+            ["X"],
+            ["0"],
+            ["N"],
+        ],
+    ]) func aSeaWhereTheNavyCantReachUsIsSafe(sea: [[Character]]) {
+        #expect(isThisASafeRoute(in: sea) == true)
+    }
+
+    @Test("we should not take this route, because its unsafe", arguments: [
+        [
+            ["X","N"]
+        ], // Unsafe, because navy is too close in turn 1
+        [
+            ["X","0"],
+            ["0","N"]
+        ], // Unsafe, because navy is too close in turn 1
+    ])
+    func anUnsafeRouteOf1x2WithNavy(sea: [[Character]]) {
         #expect(isThisASafeRoute(in: sea) == false)
     }
 }
