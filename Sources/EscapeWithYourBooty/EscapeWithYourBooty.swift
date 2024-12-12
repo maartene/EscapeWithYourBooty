@@ -21,7 +21,7 @@ func isThisASafeRoute(in sea: [[Character]]) -> Bool {
         var result = true
         let shipSurroundings = [(0,1), (1,1), (1,0)]
         for surrounding in shipSurroundings {
-            if sea[surrounding.0][surrounding.1] == "N" {
+            if sea[surrounding.0][surrounding.1] == .navyShip {
                 result = false
             }
         }
