@@ -32,6 +32,10 @@ import Testing
             ["X","0"],
             ["0","N"]
         ], // Unsafe, because navy is too close in turn 1
+        [
+            ["0", "N"],
+            ["X", "0"]
+        ]
     ])
     func anUnsafeRouteOf1x2WithNavy(sea: [[Character]]) {
         #expect(isThisASafeRoute(in: sea) == false)

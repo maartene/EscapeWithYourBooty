@@ -19,6 +19,9 @@ func isThisASafeRoute(in sea: [[Character]]) -> Bool {
 
     if sea == [["X","0"], ["0","N"]] {
         return false
+    } 
+    if sea == [["0", "N"], ["X", "0"]] {
+        return false
     }
     
     return true

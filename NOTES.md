@@ -32,7 +32,11 @@
     X0
     0N
     (there is no turn two)
-    We should check for 'patrols', in addition to 'routes'.
+    
+- ⚠️ Another unsafe route with a navy ship Turn 1 
+    0N
+    X0
+    (there is no turn two)
     
 - ⚠️ 
     Turn 1
