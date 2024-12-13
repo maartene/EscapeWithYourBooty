@@ -10,18 +10,9 @@ extension Character {
 }
 
 func isThisASafeRoute(in sea: [[Character]]) -> Bool {
-    let seaHeight = sea.count
-    let seaWidth = sea[0].count
     var result = true
-
     let shipPosition = determinePirateShipPosition(sea: sea)
-    let offsets = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1,1)]
-    let shipSurroundings = offsets.map { offset in
-        return (shipPosition.0 + offset.0, shipPosition.1 + offset.1)
-    }.filter { surrounding in
-        isWithinSea(surrounding, seaWidth, seaHeight)
-    }
-    for surrounding in shipSurroundings {
+    for surrounding in surroundings(of: shipPosition, in: sea) {
         if sea[surrounding.0][surrounding.1] == .navyShip {
             result = false
         }
@@ -29,8 +20,17 @@ func isThisASafeRoute(in sea: [[Character]]) -> Bool {
     return result
 }
 
+private func surroundings(of shipPosition: (Int, Int), in sea: [[Character]]) -> [(Int, Int)] {
+    let seaHeight = sea.count
+    let seaWidth = sea[0].count
+    let offsets = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1,1)]
+    return offsets
+        .map { offset in (shipPosition.0 + offset.0, shipPosition.1 + offset.1) }
+        .filter { isWithinSea($0, seaWidth, seaHeight) }
+}
+
 private func determinePirateShipPosition(sea: [[Character]]) -> (Int, Int) {
-    var shipPosition = (10, 10)
+    let shipPosition = (10, 10)
     for y in 0..<sea.count {
         for x in 0..<sea[y].count {
             if sea[y][x] == .pirateShip {

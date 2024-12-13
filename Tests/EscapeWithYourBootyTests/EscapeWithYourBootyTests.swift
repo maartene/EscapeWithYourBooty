@@ -41,6 +41,7 @@ import Testing
             ["X", "N"]
         ]
     ])
+
     func anUnsafeRouteOf1x2WithNavy(sea: [[Character]]) {
         #expect(isThisASafeRoute(in: sea) == false)
     }
