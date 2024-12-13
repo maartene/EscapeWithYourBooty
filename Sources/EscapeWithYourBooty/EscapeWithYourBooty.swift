@@ -11,8 +11,7 @@ extension Character {
 
 func isThisASafeRoute(in sea: [[Character]]) -> Bool {
     var result = true
-    let shipPosition = determinePirateShipPosition(sea: sea)
-    for surrounding in surroundings(of: shipPosition, in: sea) {
+    for surrounding in surroundings(of: determinePirateShipPosition(sea: sea), in: sea) {
         if sea[surrounding.0][surrounding.1] == .navyShip {
             result = false
         }
