@@ -44,6 +44,11 @@
 - ✅ Deal with out of bound indexes
 - ✅ Add the full list of possible ship surroundings
 - ✅ Find the ship position instead of hardcoding
+
+    
+## 🍅 Pomodoro 3
+- ✅ Extract method for determining surroundings
+- ✅ Creat typealias for (Int, Int)
 - ⚠️ Refactor test with newly discovered names for things
 - ⚠️ Object Calisthenics --> Extracting  building blocks
     - Sea as an object
@@ -74,6 +79,7 @@
     00
     N0
     00
+- ⚠️ Write failing test that shows the coordintes being swapped
     
 ## Acceptance test (this is what we're aiming for)
 // Example test of a safe route (that has navy in it)
