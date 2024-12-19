@@ -14,7 +14,7 @@ typealias Coordinate = (y: Int, x: Int)
 func isThisASafeRoute(in sea: [[Character]]) -> Bool {
     var result = true
     for surrounding in surroundings(of: determinePirateShipPosition(sea: sea), in: sea) {
-        if sea[surrounding.0][surrounding.1] == .navyShip {
+        if sea[surrounding.y][surrounding.x] == .navyShip {
             result = false
         }
     }
@@ -24,7 +24,16 @@ func isThisASafeRoute(in sea: [[Character]]) -> Bool {
 private func surroundings(of shipPosition: Coordinate, in sea: [[Character]]) -> [Coordinate] {
     let seaHeight = sea.count
     let seaWidth = sea[0].count
-    let offsets: [Coordinate] = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1,1)]
+    let offsets: [Coordinate] = [
+        (y: -1, x: -1), 
+        (y: -1, x: 0), 
+        (y: -1, x: 1), 
+        (y: 0, x: -1),
+        (y: 0, x: 1), 
+        (y: 1, x: -1), 
+        (y: 1, x: 0), 
+        (y: 1, x: 1)
+    ]
     return offsets
         .map { offset in (shipPosition.x + offset.x, shipPosition.y + offset.y) }
         .filter { isWithinSea($0, seaWidth, seaHeight) }
@@ -44,8 +53,8 @@ private func determinePirateShipPosition(sea: [[Character]]) -> Coordinate {
 }
 
 private func isWithinSea(_ surrounding: Coordinate, _ seaWidth: Int, _ seaHeight: Int) -> Bool {
-    surrounding.0 >= 0 &&
-        surrounding.0 < seaHeight && 
-        surrounding.1 >= 0 && 
-        surrounding.1 < seaWidth
+    surrounding.y >= 0 &&
+    surrounding.y < seaHeight && 
+    surrounding.x >= 0 && 
+    surrounding.x < seaWidth
 }
