@@ -12,21 +12,23 @@ extension String {
 typealias Coordinate = (y: Int, x: Int)
 
 func isThisASafeRoute(in sea: [[String]]) -> Bool {
+    return isSurroundingSafe(in: nextSea(for: sea))
+}
+
+private func nextSea(for sea: [[String]]) -> [[String]] {
     if sea == [["X", "0", "N"]] {
-        let nextSea = [["0", "X", "N"]]
-        return isSurroundingSafe(in: nextSea)
+        return [["0", "X", "N"]]
     }
     if sea == [
             ["X", "0", "N"],
             ["0", "0", "0"],
         ] {
-            let nextSea = [
+            return [
             ["0", "X", "0"],
             ["0", "0", "N"],
-        ]
-            return isSurroundingSafe(in: nextSea)
-        }
-    return isSurroundingSafe(in: sea)
+            ]
+    }
+    return sea
 }
 
 private func isSurroundingSafe(in sea: [[String]]) -> Bool {
