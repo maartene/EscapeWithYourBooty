@@ -16,6 +16,16 @@ func isThisASafeRoute(in sea: [[String]]) -> Bool {
         let nextSea = [["0", "X", "N"]]
         return isSurroundingSafe(in: nextSea)
     }
+    if sea == [
+            ["X", "0", "N"],
+            ["0", "0", "0"],
+        ] {
+            let nextSea = [
+            ["0", "X", "0"],
+            ["0", "0", "N"],
+        ]
+            return isSurroundingSafe(in: nextSea)
+        }
     return isSurroundingSafe(in: sea)
 }
 

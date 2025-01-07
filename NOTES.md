@@ -108,5 +108,6 @@ X00N
 ## 🍅 Pomodoro 4
 - ✅ Refactor the tests
     - ✅ Test 'anUnsafeRouteOf1x2WithNavy' should be renamed to 'anUnsafeRouteBecauseOfSurroundingNavyShip()'
-- ⚠️ Add 'time' as a degree of freedom
-    - Sea: "X0N" (Unsafe because the navy ship is in the surroundings of the pirate ship in turn )
+- 🚧 Add 'time' as a degree of freedom
+    - ✅ Sea: "X0N" (Unsafe because the navy ship is in the surroundings of the pirate ship in turn )
+    - ⚠️ Calculate 'nextSea'

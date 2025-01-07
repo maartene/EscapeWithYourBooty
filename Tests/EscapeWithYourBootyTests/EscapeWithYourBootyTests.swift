@@ -55,6 +55,10 @@ import Testing
         [
             ["X", "0", "N"]
         ],
+        [
+            ["X", "0", "N"],
+            ["0", "0", "0"],
+        ],
     ])
     func aSeaWhereTheNavyWillCrossOurRouteTheRouteIsUnsafe(sea: [[String]]) {
         #expect(isThisASafeRoute(in: sea) == false)
