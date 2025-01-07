@@ -10,12 +10,13 @@ extension String {
 }
 
 typealias Coordinate = (y: Int, x: Int)
+typealias Sea = [[String]]
 
-func isThisASafeRoute(in sea: [[String]]) -> Bool {
+func isThisASafeRoute(in sea: Sea) -> Bool {
     return isSurroundingSafe(in: nextSea(for: sea))
 }
 
-private func nextSea(for sea: [[String]]) -> [[String]] {
+private func nextSea(for sea: Sea) -> Sea {
     if sea == [["X", "0", "N"]] {
         return [["0", "X", "N"]]
     }
@@ -31,7 +32,7 @@ private func nextSea(for sea: [[String]]) -> [[String]] {
     return sea
 }
 
-private func isSurroundingSafe(in sea: [[String]]) -> Bool {
+private func isSurroundingSafe(in sea: Sea) -> Bool {
     for surrounding in surroundings(of: determinePirateShipPosition(sea: sea), in: sea) {
         if sea[surrounding.y][surrounding.x] == .navyShip {
             return false
@@ -40,7 +41,7 @@ private func isSurroundingSafe(in sea: [[String]]) -> Bool {
     return true
 }
 
-private func surroundings(of shipPosition: Coordinate, in sea: [[String]]) -> [Coordinate] {
+private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordinate] {
     let seaHeight = sea.count
     let seaWidth = sea[0].count
     let offsets: [Coordinate] = [
@@ -58,7 +59,7 @@ private func surroundings(of shipPosition: Coordinate, in sea: [[String]]) -> [C
         .filter { isWithinSea($0, seaWidth, seaHeight) }
 }
 
-private func determinePirateShipPosition(sea: [[String]]) -> Coordinate {
+private func determinePirateShipPosition(sea: Sea) -> Coordinate {
     let shipPosition = (10, 10)
     for y in 0..<sea.count {
         for x in 0..<sea[y].count {
