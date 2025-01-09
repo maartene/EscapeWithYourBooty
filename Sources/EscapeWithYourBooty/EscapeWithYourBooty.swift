@@ -20,7 +20,16 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
     
     if sea[0].count > 1 {
         let nextSea = nextSea(for: sea)
-        return isSurroundingSafe(in: nextSea)
+        if !isSurroundingSafe(in: nextSea) {
+            return false
+        } 
+    }
+    if sea[0].count > 2 {
+        let stepOneSea = nextSea(for: sea)
+        let stepTwoSea = nextSea(for: stepOneSea)
+        if  !isSurroundingSafe(in: stepTwoSea) {
+            return false
+        }
     }
     return true
 }
@@ -57,7 +66,7 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
         (y: 1, x: 1)
     ]
     return offsets
-        .map { offset in (shipPosition.x + offset.x, shipPosition.y + offset.y) }
+        .map { offset in (shipPosition.y + offset.y, shipPosition.x + offset.x) }
         .filter { isWithinSea($0, seaWidth, seaHeight) }
 }
 
@@ -66,7 +75,7 @@ private func determinePirateShipPosition(sea: Sea) -> Coordinate {
     for y in 0..<sea.count {
         for x in 0..<sea[y].count {
             if sea[y][x] == .pirateShip {
-                return (x, y)
+                return Coordinate(y: y, x: x)
             }
         }
 

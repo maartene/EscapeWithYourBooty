@@ -57,6 +57,9 @@ import Testing
         ],
         [
             ["X", "0", "N", "0"]
+        ],
+        [
+            ["X", "0", "0", "N"]
         ]
     ])
     func aSeaWhereTheNavyWillCrossOurRouteTheRouteIsUnsafe(sea: Sea) {
