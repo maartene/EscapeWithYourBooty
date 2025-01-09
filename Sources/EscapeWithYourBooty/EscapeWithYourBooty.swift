@@ -7,6 +7,7 @@
 extension String {
     static let pirateShip = "X"
     static let navyShip = "N"
+    static let emptyTile = "0"
 }
 
 typealias Coordinate = (y: Int, x: Int)
@@ -28,8 +29,8 @@ private func nextSea(for sea: Sea) -> Sea {
     let pirateShipCoordinate = determinePirateShipPosition(sea: sea)
     let nextPirateShipCoordinate = Coordinate(y: pirateShipCoordinate.y, x: pirateShipCoordinate.x + 1)
     var mutableSea = sea
-    mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = "0"
-    mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = "X"
+    mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = .emptyTile
+    mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = .pirateShip
     return mutableSea
 }
 
