@@ -17,28 +17,20 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
         return false
     }
     
-    let nextSea = nextSea(for: sea)
-    return isSurroundingSafe(in: nextSea)
+    if sea[0].count > 1 {
+        let nextSea = nextSea(for: sea)
+        return isSurroundingSafe(in: nextSea)
+    }
+    return true
 }
 
 private func nextSea(for sea: Sea) -> Sea {
-    if sea == [["X", "0", "N"]] {
-        let pirateShipCoordinate = Coordinate(y: 0, x: 0)
-        let nextPirateShipCoordinate = Coordinate(y: 0, x: 1)
-        var mutableSea = sea
-        mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = "0"
-        mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = "X"
-        return mutableSea
-    }
-    if sea == [["X", "0", "N", "0"]] {
-        let pirateShipCoordinate = Coordinate(y: 0, x: 0)
-        let nextPirateShipCoordinate = Coordinate(y: 0, x: 1)
-        var mutableSea = sea
-        mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = "0"
-        mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = "X"
-        return mutableSea
-    }
-    return sea
+    let pirateShipCoordinate = Coordinate(y: 0, x: 0)
+    let nextPirateShipCoordinate = Coordinate(y: 0, x: 1)
+    var mutableSea = sea
+    mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = "0"
+    mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = "X"
+    return mutableSea
 }
 
 private func isSurroundingSafe(in sea: Sea) -> Bool {
