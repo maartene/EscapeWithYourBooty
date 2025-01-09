@@ -26,9 +26,11 @@ private func nextSea(for sea: Sea) -> Sea {
         return mutableSea
     }
     if sea == [["X", "0", "N", "0"]] {
+        let pirateShipCoordinate = Coordinate(y: 0, x: 0)
+        let nextPirateShipCoordinate = Coordinate(y: 0, x: 1)
         var mutableSea = sea
-        mutableSea[0][0] = "0"
-        mutableSea[0][1] = "X"
+        mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = "0"
+        mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = "X"
         return mutableSea
     }
     return sea
