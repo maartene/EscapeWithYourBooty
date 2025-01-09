@@ -20,6 +20,9 @@ private func nextSea(for sea: Sea) -> Sea {
     if sea == [["X", "0", "N"]] {
         return [["0", "X", "N"]]
     }
+    if sea == [["X", "0", "N", "0"]] {
+        return [["0", "X", "N", "0"]]
+    }
     if sea == [
             ["X", "0", "N"],
             ["0", "0", "0"],
