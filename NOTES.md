@@ -115,3 +115,6 @@ X00N
 
 ## 🍅 Pomodoro 5
     - ⚠️ Calculate 'nextSea' for arbitrary rectangular seas
+
+## 🍅 Pomodoro 6 
+    - ⚠️ Determine 'nextSea' dynamically: first by testing the first next sea, and then the Nth next see 
