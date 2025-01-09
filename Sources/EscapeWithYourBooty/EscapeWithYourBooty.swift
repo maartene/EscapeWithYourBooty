@@ -25,7 +25,7 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
 }
 
 private func nextSea(for sea: Sea) -> Sea {
-    let pirateShipCoordinate = Coordinate(y: 0, x: 0)
+    let pirateShipCoordinate = determinePirateShipPosition(sea: sea)
     let nextPirateShipCoordinate = Coordinate(y: 0, x: 1)
     var mutableSea = sea
     mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = "0"
