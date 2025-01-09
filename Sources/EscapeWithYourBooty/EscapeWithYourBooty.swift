@@ -13,7 +13,12 @@ typealias Coordinate = (y: Int, x: Int)
 typealias Sea = [[String]]
 
 func isThisASafeRoute(in sea: Sea) -> Bool {
-    return isSurroundingSafe(in: nextSea(for: sea))
+    if !isSurroundingSafe(in: sea) {
+        return false
+    }
+    
+    let nextSea = nextSea(for: sea)
+    return isSurroundingSafe(in: nextSea)
 }
 
 private func nextSea(for sea: Sea) -> Sea {
