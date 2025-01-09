@@ -117,4 +117,5 @@ X00N
     - ⚠️ Calculate 'nextSea' for arbitrary rectangular seas
 
 ## 🍅 Pomodoro 6 
-    - ⚠️ Determine 'nextSea' dynamically: first by testing the first next sea, and then the Nth next see 
+    - ⚠️ Determine 'nextSea' dynamically: first by testing the first next sea, and then the Nth next sea
+    - ⚠️ Find pirate position (assume it is at 0 first)

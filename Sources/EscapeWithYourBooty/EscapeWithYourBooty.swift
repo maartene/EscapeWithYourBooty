@@ -18,7 +18,12 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
 
 private func nextSea(for sea: Sea) -> Sea {
     if sea == [["X", "0", "N"]] {
-        return [["0", "X", "N"]]
+        let pirateShipCoordinate = Coordinate(0,0)
+        let nextPirateShipCoordinate = Coordinate(0,1)
+        var mutableSea = sea
+        mutableSea[0][0] = "0"
+        mutableSea[0][1] = "X"
+        return mutableSea
     }
     if sea == [["X", "0", "N", "0"]] {
         return [["0", "X", "N", "0"]]
