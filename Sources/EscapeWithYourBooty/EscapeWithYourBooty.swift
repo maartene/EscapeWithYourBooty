@@ -22,9 +22,9 @@ struct Sea {
         self.rawValue = rawValue
     }
 
-    // var width: Int {
-    //     rawValue[0].count
-    // }
+    var width: Int {
+        rawValue[0].count
+    }
 
     // var height: Int {
     //     rawValue.count
@@ -36,13 +36,13 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
         return false
     }
     
-    if sea.rawValue[0].count > 1 {
+    if sea.width > 1 {
         let nextSea = nextSea(for: sea)
         if !isSurroundingSafe(in: nextSea) {
             return false
         } 
     }
-    if sea.rawValue[0].count > 2 {
+    if sea.width > 2 {
         let stepOneSea = nextSea(for: sea)
         let stepTwoSea = nextSea(for: stepOneSea)
         if  !isSurroundingSafe(in: stepTwoSea) {
@@ -72,7 +72,7 @@ private func isSurroundingSafe(in sea: Sea) -> Bool {
 
 private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordinate] {
     let seaHeight = sea.rawValue.count
-    let seaWidth = sea.rawValue[0].count
+    let seaWidth = sea.width
     let offsets: [Coordinate] = [
         .init(x: -1, y: -1), 
         .init(x: -1, y: 0), 
