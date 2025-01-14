@@ -11,8 +11,8 @@ extension String {
 }
 
 struct Coordinate {
-    let y: Int
     let x: Int
+    let y: Int
 }
 
 typealias Sea = [[String]]
@@ -40,7 +40,7 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
 
 private func nextSea(for sea: Sea) -> Sea {
     let pirateShipCoordinate = determinePirateShipPosition(sea: sea)
-    let nextPirateShipCoordinate = Coordinate(y: pirateShipCoordinate.y, x: pirateShipCoordinate.x + 1)
+    let nextPirateShipCoordinate = Coordinate(x: pirateShipCoordinate.x + 1,  y: pirateShipCoordinate.y)
     var mutableSea = sea
     mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = .emptyTile
     mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = .pirateShip
@@ -60,26 +60,26 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
     let seaHeight = sea.count
     let seaWidth = sea[0].count
     let offsets: [Coordinate] = [
-        .init(y: -1, x: -1), 
-        .init(y: -1, x: 0), 
-        .init(y: -1, x: 1), 
-        .init(y: 0, x: -1),
-        .init(y: 0, x: 1), 
-        .init(y: 1, x: -1), 
-        .init(y: 1, x: 0), 
-        .init(y: 1, x: 1)
+        .init(x: -1, y: -1), 
+        .init(x: -1, y: 0), 
+        .init(x: -1, y: 1), 
+        .init(x: 0, y: -1),
+        .init(x: 0, y: 1), 
+        .init(x: 1, y: -1), 
+        .init(x: 1, y: 0), 
+        .init(x: 1, y: 1)
     ]
     return offsets
-        .map { offset in Coordinate(y: shipPosition.y + offset.y, x: shipPosition.x + offset.x) }
+        .map { offset in Coordinate(x: shipPosition.x + offset.x, y: shipPosition.y + offset.y) }
         .filter { isWithinSea($0, seaWidth, seaHeight) }
 }
 
 private func determinePirateShipPosition(sea: Sea) -> Coordinate {
-    let shipPosition = Coordinate(y: 10, x: 10)
+    let shipPosition = Coordinate(x: 10, y: 10)
     for y in 0..<sea.count {
         for x in 0..<sea[y].count {
             if sea[y][x] == .pirateShip {
-                return Coordinate(y: y, x: x)
+                return Coordinate(x: x, y: y)
             }
         }
 
