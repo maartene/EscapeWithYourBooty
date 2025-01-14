@@ -10,7 +10,11 @@ extension String {
     static let emptyTile = "0"
 }
 
-typealias Coordinate = (y: Int, x: Int)
+struct Coordinate {
+    let y: Int
+    let x: Int
+}
+
 typealias Sea = [[String]]
 
 func isThisASafeRoute(in sea: Sea) -> Bool {
@@ -56,22 +60,22 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
     let seaHeight = sea.count
     let seaWidth = sea[0].count
     let offsets: [Coordinate] = [
-        (y: -1, x: -1), 
-        (y: -1, x: 0), 
-        (y: -1, x: 1), 
-        (y: 0, x: -1),
-        (y: 0, x: 1), 
-        (y: 1, x: -1), 
-        (y: 1, x: 0), 
-        (y: 1, x: 1)
+        .init(y: -1, x: -1), 
+        .init(y: -1, x: 0), 
+        .init(y: -1, x: 1), 
+        .init(y: 0, x: -1),
+        .init(y: 0, x: 1), 
+        .init(y: 1, x: -1), 
+        .init(y: 1, x: 0), 
+        .init(y: 1, x: 1)
     ]
     return offsets
-        .map { offset in (shipPosition.y + offset.y, shipPosition.x + offset.x) }
+        .map { offset in Coordinate(y: shipPosition.y + offset.y, x: shipPosition.x + offset.x) }
         .filter { isWithinSea($0, seaWidth, seaHeight) }
 }
 
 private func determinePirateShipPosition(sea: Sea) -> Coordinate {
-    let shipPosition = (10, 10)
+    let shipPosition = Coordinate(y: 10, x: 10)
     for y in 0..<sea.count {
         for x in 0..<sea[y].count {
             if sea[y][x] == .pirateShip {
