@@ -15,20 +15,34 @@ struct Coordinate {
     let y: Int
 }
 
-typealias Sea = [[String]]
+struct Sea {
+    let rawValue: [[String]]
+
+    init(_ rawValue: [[String]]) {
+        self.rawValue = rawValue
+    }
+
+    // var width: Int {
+    //     rawValue[0].count
+    // }
+
+    // var height: Int {
+    //     rawValue.count
+    // }
+}
 
 func isThisASafeRoute(in sea: Sea) -> Bool {
     if !isSurroundingSafe(in: sea) {
         return false
     }
     
-    if sea[0].count > 1 {
+    if sea.rawValue[0].count > 1 {
         let nextSea = nextSea(for: sea)
         if !isSurroundingSafe(in: nextSea) {
             return false
         } 
     }
-    if sea[0].count > 2 {
+    if sea.rawValue[0].count > 2 {
         let stepOneSea = nextSea(for: sea)
         let stepTwoSea = nextSea(for: stepOneSea)
         if  !isSurroundingSafe(in: stepTwoSea) {
@@ -41,15 +55,15 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
 private func nextSea(for sea: Sea) -> Sea {
     let pirateShipCoordinate = determinePirateShipPosition(sea: sea)
     let nextPirateShipCoordinate = Coordinate(x: pirateShipCoordinate.x + 1,  y: pirateShipCoordinate.y)
-    var mutableSea = sea
+    var mutableSea = sea.rawValue
     mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = .emptyTile
     mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = .pirateShip
-    return mutableSea
+    return .init(mutableSea)
 }
 
 private func isSurroundingSafe(in sea: Sea) -> Bool {
     for surrounding in surroundings(of: determinePirateShipPosition(sea: sea), in: sea) {
-        if sea[surrounding.y][surrounding.x] == .navyShip {
+        if sea.rawValue[surrounding.y][surrounding.x] == .navyShip {
             return false
         }
     }
@@ -57,8 +71,8 @@ private func isSurroundingSafe(in sea: Sea) -> Bool {
 }
 
 private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordinate] {
-    let seaHeight = sea.count
-    let seaWidth = sea[0].count
+    let seaHeight = sea.rawValue.count
+    let seaWidth = sea.rawValue[0].count
     let offsets: [Coordinate] = [
         .init(x: -1, y: -1), 
         .init(x: -1, y: 0), 
@@ -76,9 +90,9 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
 
 private func determinePirateShipPosition(sea: Sea) -> Coordinate {
     let shipPosition = Coordinate(x: 10, y: 10)
-    for y in 0..<sea.count {
-        for x in 0..<sea[y].count {
-            if sea[y][x] == .pirateShip {
+    for y in 0..<sea.rawValue.count {
+        for x in 0..<sea.rawValue[y].count {
+            if sea.rawValue[y][x] == .pirateShip {
                 return Coordinate(x: x, y: y)
             }
         }

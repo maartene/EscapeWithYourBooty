@@ -10,8 +10,8 @@ import Testing
             ["X", "0"],
             ["0", "0"],
         ]
-    ]) func aSeaWithoutAnyNavyIsSafe(sea: Sea) {
-        #expect(isThisASafeRoute(in: sea) == true)
+    ]) func aSeaWithoutAnyNavyIsSafe(sea: [[String]]) {
+        #expect(isThisASafeRoute(in: .init(sea)) == true)
     }
 
     @Test("we can take a route where the navy won't be able to reach us", arguments: [
@@ -20,8 +20,8 @@ import Testing
             ["0"],
             ["N"],
         ],
-    ]) func aSeaWhereTheNavyCantReachUsIsSafe(sea: Sea) {
-        #expect(isThisASafeRoute(in: sea) == true)
+    ]) func aSeaWhereTheNavyCantReachUsIsSafe(sea: [[String]]) {
+        #expect(isThisASafeRoute(in: .init(sea)) == true)
     }
 
     @Test("""
@@ -44,8 +44,8 @@ import Testing
             ["X", "N"]
         ]
     ])
-    func aSeaWhereTheNavyIsRightNextToUsTheRouteIsUnsafe(sea: Sea) {
-        #expect(isThisASafeRoute(in: sea) == false)
+    func aSeaWhereTheNavyIsRightNextToUsTheRouteIsUnsafe(sea: [[String]]) {
+        #expect(isThisASafeRoute(in: .init(sea)) == false)
     }
 
     @Test("""
@@ -56,13 +56,11 @@ import Testing
             ["X", "0", "N"]
         ],
         [
-            ["X", "0", "N", "0"]
+            ["X", "0", "N"],
+            ["0", "0", "0"],
         ],
-        [
-            ["X", "0", "0", "N"]
-        ]
     ])
-    func aSeaWhereTheNavyWillCrossOurRouteTheRouteIsUnsafe(sea: Sea) {
-        #expect(isThisASafeRoute(in: sea) == false)
+    func aSeaWhereTheNavyWillCrossOurRouteTheRouteIsUnsafe(sea: [[String]]) {
+        #expect(isThisASafeRoute(in: .init(sea)) == false)
     }
 }
