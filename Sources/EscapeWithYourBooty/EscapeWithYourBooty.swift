@@ -71,8 +71,6 @@ private func isSurroundingSafe(in sea: Sea) -> Bool {
 }
 
 private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordinate] {
-    let seaHeight = sea.height
-    let seaWidth = sea.width
     let offsets: [Coordinate] = [
         .init(x: -1, y: -1), 
         .init(x: -1, y: 0), 
@@ -85,7 +83,7 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
     ]
     return offsets
         .map { offset in Coordinate(x: shipPosition.x + offset.x, y: shipPosition.y + offset.y) }
-        .filter { isWithinSea($0, seaWidth, seaHeight) }
+        .filter { isWithinSea($0, sea.width, sea.height) }
 }
 
 private func determinePirateShipPosition(sea: Sea) -> Coordinate {
