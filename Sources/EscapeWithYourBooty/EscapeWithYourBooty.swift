@@ -35,6 +35,10 @@ struct Sea {
         mutableSelf.rawValue[coordinate.y][coordinate.x] = tileKind
         return mutableSelf
     }
+
+    func isCoordinate(_ coordinate: Coordinate, ofKind tileKind: String) -> Bool {
+        rawValue[coordinate.y][coordinate.x] == tileKind
+    }
 }
 
 func isThisASafeRoute(in sea: Sea) -> Bool {
@@ -69,7 +73,7 @@ private func nextSea(for sea: Sea) -> Sea {
 
 private func isSurroundingSafe(in sea: Sea) -> Bool {
     for surrounding in surroundings(of: determinePirateShipPosition(sea: sea), in: sea) {
-        if sea.rawValue[surrounding.y][surrounding.x] == .navyShip {
+        if sea.isCoordinate(surrounding, ofKind: .navyShip) {
             return false
         }
     }
@@ -95,7 +99,7 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
 private func determinePirateShipPosition(sea: Sea) -> Coordinate {
     let shipPosition = Coordinate(x: 10, y: 10)
     for y in 0..<sea.height {
-        for x in 0..<sea.rawValue[y].count {
+        for x in 0..<sea.width {
             if sea.rawValue[y][x] == .pirateShip {
                 return Coordinate(x: x, y: y)
             }
