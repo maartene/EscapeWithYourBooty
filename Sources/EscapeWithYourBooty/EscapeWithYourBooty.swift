@@ -16,7 +16,7 @@ struct Coordinate {
 }
 
 struct Sea {
-    let rawValue: [[String]]
+    private(set) var rawValue: [[String]]
 
     init(_ rawValue: [[String]]) {
         self.rawValue = rawValue
@@ -28,6 +28,12 @@ struct Sea {
 
     var height: Int {
         rawValue.count
+    }
+
+    func setting(coordinate: Coordinate, to tileKind: String) -> Self {
+        var mutableSelf = self
+        mutableSelf.rawValue[coordinate.y][coordinate.x] = tileKind
+        return mutableSelf
     }
 }
 
@@ -55,10 +61,10 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
 private func nextSea(for sea: Sea) -> Sea {
     let pirateShipCoordinate = determinePirateShipPosition(sea: sea)
     let nextPirateShipCoordinate = Coordinate(x: pirateShipCoordinate.x + 1,  y: pirateShipCoordinate.y)
-    var mutableSea = sea.rawValue
-    mutableSea[pirateShipCoordinate.y][pirateShipCoordinate.x] = .emptyTile
-    mutableSea[nextPirateShipCoordinate.y][nextPirateShipCoordinate.x] = .pirateShip
-    return .init(mutableSea)
+
+    return sea
+        .setting(coordinate: pirateShipCoordinate, to: .emptyTile)
+        .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
 }
 
 private func isSurroundingSafe(in sea: Sea) -> Bool {
