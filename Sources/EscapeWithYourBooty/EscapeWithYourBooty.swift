@@ -69,8 +69,26 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
     }
     if sea.width > 2 {
         let stepOneSea = nextSea(for: sea)
+        if  !isSurroundingSafe(in: stepOneSea) {
+            return false
+        }
         let stepTwoSea = nextSea(for: stepOneSea)
         if  !isSurroundingSafe(in: stepTwoSea) {
+            return false
+        }
+    }
+
+    if sea.width > 3 {
+        let stepOneSea = nextSea(for: sea)
+        if  !isSurroundingSafe(in: stepOneSea) {
+            return false
+        }
+        let stepTwoSea = nextSea(for: stepOneSea)
+        if  !isSurroundingSafe(in: stepTwoSea) {
+            return false
+        }
+        let stepThreeSea = nextSea(for: stepTwoSea)
+        if  !isSurroundingSafe(in: stepThreeSea) {
             return false
         }
     }
