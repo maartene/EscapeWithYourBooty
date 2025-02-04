@@ -16,7 +16,7 @@ struct Coordinate {
 }
 
 struct Sea {
-    private(set) var rawValue: [[String]]
+    private var rawValue: [[String]]
 
     init(_ rawValue: [[String]]) {
         self.rawValue = rawValue
@@ -97,16 +97,19 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
 }
 
 private func determinePirateShipPosition(sea: Sea) -> Coordinate {
-    let shipPosition = Coordinate(x: 10, y: 10)
     for y in 0..<sea.height {
         for x in 0..<sea.width {
-            if sea.rawValue[y][x] == .pirateShip {
+            let shipPosition = Coordinate(x: x, y: y)
+            if sea.isCoordinate(
+                shipPosition,
+                ofKind: .pirateShip
+            )  {
                 return Coordinate(x: x, y: y)
             }
         }
 
     }
-    return shipPosition
+    return .init(x: 0, y: 0)
 }
 
 private func isWithinSea(_ surrounding: Coordinate, _ seaWidth: Int, _ seaHeight: Int) -> Bool {
