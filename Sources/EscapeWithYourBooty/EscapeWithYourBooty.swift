@@ -41,11 +41,18 @@ struct Sea {
     }
 
     var pirateShipPosition: Coordinate {
-        if let position = determinePirateShipPosition(sea: self) {
-            return position
-        } else {
-            fatalError("Expected pirateShipCoordinate")
+        for y in 0..<self.height {
+            for x in 0..<self.width {
+                let shipPosition = Coordinate(x: x, y: y)
+                if self.isCoordinate(
+                    shipPosition,
+                    ofKind: .pirateShip
+                )  {
+                    return Coordinate(x: x, y: y)
+                }
+            }
         }
+        fatalError("Expected pirateShipCoordinate")
     }
 }
 
@@ -104,22 +111,6 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
     return offsets
         .map { offset in Coordinate(x: shipPosition.x + offset.x, y: shipPosition.y + offset.y) }
         .filter { isWithinSea($0, sea.width, sea.height) }
-}
-
-private func determinePirateShipPosition(sea: Sea) -> Coordinate? {
-    for y in 0..<sea.height {
-        for x in 0..<sea.width {
-            let shipPosition = Coordinate(x: x, y: y)
-            if sea.isCoordinate(
-                shipPosition,
-                ofKind: .pirateShip
-            )  {
-                return Coordinate(x: x, y: y)
-            }
-        }
-
-    }
-    return nil
 }
 
 private func isWithinSea(_ surrounding: Coordinate, _ seaWidth: Int, _ seaHeight: Int) -> Bool {
