@@ -119,3 +119,7 @@ X00N
 ## 🍅 Pomodoro 6 
     - ⚠️ Determine 'nextSea' dynamically: first by testing the first next sea, and then the Nth next sea
     - ⚠️ Find pirate position (assume it is at 0 first)
+
+## 🍅 Pomodoro 6 + n
+    - Validate isThisASafeRoute with arbitrary seas
+    - Line 65 and 66 are equal

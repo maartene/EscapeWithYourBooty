@@ -60,46 +60,27 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
     if !isSurroundingSafe(in: sea) {
         return false
     }
-    
-    if sea.width > 1 {
-        let nextSea = nextSea(for: sea)
-        if !isSurroundingSafe(in: nextSea) {
-            return false
-        } 
-    }
-    if sea.width > 2 {
-        let stepOneSea = nextSea(for: sea)
-        if  !isSurroundingSafe(in: stepOneSea) {
-            return false
-        }
-        let stepTwoSea = nextSea(for: stepOneSea)
-        if  !isSurroundingSafe(in: stepTwoSea) {
+
+    if let upcomingSea = nextSea(for: sea) {
+        if isThisASafeRoute(in: upcomingSea) {
+            return isThisASafeRoute(in: upcomingSea)
+        } else {
             return false
         }
     }
 
-    if sea.width > 3 {
-        let stepOneSea = nextSea(for: sea)
-        if  !isSurroundingSafe(in: stepOneSea) {
-            return false
-        }
-        let stepTwoSea = nextSea(for: stepOneSea)
-        if  !isSurroundingSafe(in: stepTwoSea) {
-            return false
-        }
-        let stepThreeSea = nextSea(for: stepTwoSea)
-        if  !isSurroundingSafe(in: stepThreeSea) {
-            return false
-        }
-    }
     return true
 }
 
-private func nextSea(for sea: Sea) -> Sea {
+private func nextSea(for sea: Sea) -> Sea? {
     let nextPirateShipCoordinate = Coordinate(
         x: sea.pirateShipPosition.x + 1,
         y: sea.pirateShipPosition.y
     )
+
+    guard nextPirateShipCoordinate.x < sea.width else {
+        return nil
+    }
 
     return sea
         .setting(coordinate: sea.pirateShipPosition, to: .emptyTile)
