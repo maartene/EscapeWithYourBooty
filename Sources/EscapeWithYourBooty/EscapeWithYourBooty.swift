@@ -39,6 +39,14 @@ struct Sea {
     func isCoordinate(_ coordinate: Coordinate, ofKind tileKind: String) -> Bool {
         rawValue[coordinate.y][coordinate.x] == tileKind
     }
+
+    var pirateShipPosition: Coordinate {
+        if let position = determinePirateShipPosition(sea: self) {
+            return position
+        } else {
+            fatalError("Expected pirateShipCoordinate")
+        }
+    }
 }
 
 func isThisASafeRoute(in sea: Sea) -> Bool {
@@ -63,16 +71,18 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
 }
 
 private func nextSea(for sea: Sea) -> Sea {
-    let pirateShipCoordinate = determinePirateShipPosition(sea: sea)
-    let nextPirateShipCoordinate = Coordinate(x: pirateShipCoordinate.x + 1,  y: pirateShipCoordinate.y)
+    let nextPirateShipCoordinate = Coordinate(
+        x: sea.pirateShipPosition.x + 1,
+        y: sea.pirateShipPosition.y
+    )
 
     return sea
-        .setting(coordinate: pirateShipCoordinate, to: .emptyTile)
+        .setting(coordinate: sea.pirateShipPosition, to: .emptyTile)
         .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
 }
 
 private func isSurroundingSafe(in sea: Sea) -> Bool {
-    for surrounding in surroundings(of: determinePirateShipPosition(sea: sea), in: sea) {
+    for surrounding in surroundings(of: sea.pirateShipPosition, in: sea) {
         if sea.isCoordinate(surrounding, ofKind: .navyShip) {
             return false
         }
@@ -96,7 +106,7 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
         .filter { isWithinSea($0, sea.width, sea.height) }
 }
 
-private func determinePirateShipPosition(sea: Sea) -> Coordinate {
+private func determinePirateShipPosition(sea: Sea) -> Coordinate? {
     for y in 0..<sea.height {
         for x in 0..<sea.width {
             let shipPosition = Coordinate(x: x, y: y)
@@ -109,7 +119,7 @@ private func determinePirateShipPosition(sea: Sea) -> Coordinate {
         }
 
     }
-    return .init(x: 0, y: 0)
+    return nil
 }
 
 private func isWithinSea(_ surrounding: Coordinate, _ seaWidth: Int, _ seaHeight: Int) -> Bool {
