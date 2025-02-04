@@ -62,11 +62,7 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
     }
 
     if let upcomingSea = nextSea(for: sea) {
-        if isThisASafeRoute(in: upcomingSea) {
-            return isThisASafeRoute(in: upcomingSea)
-        } else {
-            return false
-        }
+        return isThisASafeRoute(in: upcomingSea)
     }
 
     return true
