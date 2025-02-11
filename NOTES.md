@@ -121,5 +121,9 @@ X00N
     - ⚠️ Find pirate position (assume it is at 0 first)
 
 ## 🍅 Pomodoro 6 + n
-    - Validate isThisASafeRoute with arbitrary seas
-    - Line 65 and 66 are equal
+    - ✅ Validate isThisASafeRoute with arbitrary seas
+    - ✅ Line 65 and 66 are equal
+
+## 🍅 Pomodoro 7 - Patrolling Navy Vessels
+⚠️ Guard on sea bounds is duplicated to multiple places
+⚠️ Deduplicate finding a ship (navy or pirate)

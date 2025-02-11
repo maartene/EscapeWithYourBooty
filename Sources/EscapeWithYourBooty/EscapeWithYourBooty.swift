@@ -54,6 +54,21 @@ struct Sea {
         }
         fatalError("Expected pirateShipCoordinate")
     }
+
+    var navyShipPosition: Coordinate? {
+        for y in 0..<self.height {
+            for x in 0..<self.width {
+                let shipPosition = Coordinate(x: x, y: y)
+                if self.isCoordinate(
+                    shipPosition,
+                    ofKind: .navyShip
+                )  {
+                    return Coordinate(x: x, y: y)
+                }
+            }
+        }
+        return nil
+    }
 }
 
 func isThisASafeRoute(in sea: Sea) -> Bool {
@@ -74,11 +89,23 @@ private func nextSea(for sea: Sea) -> Sea? {
         y: sea.pirateShipPosition.y
     )
 
+    var updatedSea = sea
+
+    if let currentNavyShipCoordinate = sea.navyShipPosition {
+        let nextNavyShipCoordinate = Coordinate(
+        x: 1,
+        y: 1
+        )
+        updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .emptyTile)
+            .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
+    }
+    
+
     guard nextPirateShipCoordinate.x < sea.width else {
         return nil
     }
 
-    return sea
+    return updatedSea
         .setting(coordinate: sea.pirateShipPosition, to: .emptyTile)
         .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
 }
