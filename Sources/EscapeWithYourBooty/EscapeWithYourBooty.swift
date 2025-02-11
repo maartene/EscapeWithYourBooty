@@ -96,8 +96,10 @@ private func nextSea(for sea: Sea) -> Sea? {
         x: 1,
         y: 1
         )
-        updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .emptyTile)
-            .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
+        if isWithinSea(nextNavyShipCoordinate, sea.width, sea.height) {
+            updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .emptyTile)
+                .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
+        }
     }
     
 
