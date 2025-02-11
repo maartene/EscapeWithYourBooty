@@ -125,5 +125,4 @@ X00N
     - ✅ Line 65 and 66 are equal
 
 ## 🍅 Pomodoro 7 - Patrolling Navy Vessels
-⚠️ Guard on sea bounds is duplicated to multiple places
-⚠️ Deduplicate finding a ship (navy or pirate)
+    - ✅ A single patrolling ship leads to correct conclusions about safe ships.
