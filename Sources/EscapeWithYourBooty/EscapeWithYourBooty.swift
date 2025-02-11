@@ -15,12 +15,20 @@ struct Coordinate {
     let y: Int
 }
 
+enum NavyShipDirection {
+    case TopToBottom
+    case BottomToTop
+}
+
 struct Sea {
     private var rawValue: [[String]]
 
     init(_ rawValue: [[String]]) {
         self.rawValue = rawValue
+        navyShipDirection = navyShipPosition?.y == 0 ? .TopToBottom : .BottomToTop
     }
+
+    var navyShipDirection: NavyShipDirection = .BottomToTop
 
     var width: Int {
         rawValue[0].count
@@ -94,7 +102,7 @@ private func nextSea(for sea: Sea) -> Sea? {
     if let currentNavyShipCoordinate = sea.navyShipPosition {
         let nextNavyShipCoordinate = Coordinate(
             x: currentNavyShipCoordinate.x,
-            y: currentNavyShipCoordinate.y == 0 ? 1 : currentNavyShipCoordinate.y - 1
+            y: sea.navyShipDirection == .TopToBottom ? currentNavyShipCoordinate.y + 1 : currentNavyShipCoordinate.y - 1
         )
         if isWithinSea(nextNavyShipCoordinate, sea.width, sea.height) {
             updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .emptyTile)
