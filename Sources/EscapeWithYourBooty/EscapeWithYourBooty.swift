@@ -1,6 +1,6 @@
 @main struct EscapeWithYourBooty {
     static func main() {
-        
+
     }
 }
 
@@ -55,7 +55,7 @@ struct Sea {
                 if self.isCoordinate(
                     shipPosition,
                     ofKind: .pirateShip
-                )  {
+                ) {
                     return Coordinate(x: x, y: y)
                 }
             }
@@ -70,7 +70,7 @@ struct Sea {
                 if self.isCoordinate(
                     shipPosition,
                     ofKind: .navyShip
-                )  {
+                ) {
                     return Coordinate(x: x, y: y)
                 }
             }
@@ -78,11 +78,11 @@ struct Sea {
         return nil
     }
 
-    func isWithinSea(_ surrounding: Coordinate, _ seaWidth: Int, _ seaHeight: Int) -> Bool {
-        surrounding.y >= 0 &&
-        surrounding.y < seaHeight && 
+    func isWithinSea(_ surrounding: Coordinate) -> Bool {
+        surrounding.y >= 0 && 
+        surrounding.y < height && 
         surrounding.x >= 0 && 
-        surrounding.x < seaWidth
+        surrounding.x < width
     }
 }
 
@@ -109,20 +109,21 @@ private func nextSea(for sea: Sea) -> Sea? {
     if let currentNavyShipCoordinate = sea.navyShipPosition {
         let nextNavyShipCoordinate = Coordinate(
             x: currentNavyShipCoordinate.x,
-            y: sea.navyShipDirection == .TopToBottom ? currentNavyShipCoordinate.y + 1 : currentNavyShipCoordinate.y - 1
+            y: sea.navyShipDirection == .TopToBottom
+                ? currentNavyShipCoordinate.y + 1 : currentNavyShipCoordinate.y - 1
         )
-        if sea.isWithinSea(nextNavyShipCoordinate, sea.width, sea.height) {
+        if sea.isWithinSea(nextNavyShipCoordinate) {
             updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .emptyTile)
                 .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
         }
     }
-    
 
     guard nextPirateShipCoordinate.x < sea.width else {
         return nil
     }
 
-    return updatedSea
+    return
+        updatedSea
         .setting(coordinate: sea.pirateShipPosition, to: .emptyTile)
         .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
 }
@@ -138,16 +139,17 @@ private func isSurroundingSafe(in sea: Sea) -> Bool {
 
 private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordinate] {
     let offsets: [Coordinate] = [
-        .init(x: -1, y: -1), 
-        .init(x: -1, y: 0), 
-        .init(x: -1, y: 1), 
+        .init(x: -1, y: -1),
+        .init(x: -1, y: 0),
+        .init(x: -1, y: 1),
         .init(x: 0, y: -1),
-        .init(x: 0, y: 1), 
-        .init(x: 1, y: -1), 
-        .init(x: 1, y: 0), 
-        .init(x: 1, y: 1)
+        .init(x: 0, y: 1),
+        .init(x: 1, y: -1),
+        .init(x: 1, y: 0),
+        .init(x: 1, y: 1),
     ]
-    return offsets
+    return
+        offsets
         .map { offset in Coordinate(x: shipPosition.x + offset.x, y: shipPosition.y + offset.y) }
-        .filter { sea.isWithinSea($0, sea.width, sea.height) }
+        .filter { sea.isWithinSea($0) }
 }
