@@ -77,6 +77,13 @@ struct Sea {
         }
         return nil
     }
+
+    func isWithinSea(_ surrounding: Coordinate, _ seaWidth: Int, _ seaHeight: Int) -> Bool {
+        surrounding.y >= 0 &&
+        surrounding.y < seaHeight && 
+        surrounding.x >= 0 && 
+        surrounding.x < seaWidth
+    }
 }
 
 func isThisASafeRoute(in sea: Sea) -> Bool {
@@ -104,7 +111,7 @@ private func nextSea(for sea: Sea) -> Sea? {
             x: currentNavyShipCoordinate.x,
             y: sea.navyShipDirection == .TopToBottom ? currentNavyShipCoordinate.y + 1 : currentNavyShipCoordinate.y - 1
         )
-        if isWithinSea(nextNavyShipCoordinate, sea.width, sea.height) {
+        if sea.isWithinSea(nextNavyShipCoordinate, sea.width, sea.height) {
             updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .emptyTile)
                 .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
         }
@@ -142,12 +149,5 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
     ]
     return offsets
         .map { offset in Coordinate(x: shipPosition.x + offset.x, y: shipPosition.y + offset.y) }
-        .filter { isWithinSea($0, sea.width, sea.height) }
-}
-
-private func isWithinSea(_ surrounding: Coordinate, _ seaWidth: Int, _ seaHeight: Int) -> Bool {
-    surrounding.y >= 0 &&
-    surrounding.y < seaHeight && 
-    surrounding.x >= 0 && 
-    surrounding.x < seaWidth
+        .filter { sea.isWithinSea($0, sea.width, sea.height) }
 }
