@@ -4,10 +4,10 @@
     }
 }
 
-extension String {
-    static let pirateShip = "X"
-    static let navyShip = "N"
-    static let emptyTile = "0"
+enum Tile: String {
+    case pirateShip = "X"
+    case navyShip = "N"
+    case empty = "0"
 }
 
 struct Coordinate {
@@ -38,14 +38,14 @@ struct Sea {
         rawValue.count
     }
 
-    func setting(coordinate: Coordinate, to tileKind: String) -> Self {
+    func setting(coordinate: Coordinate, to tileKind: Tile) -> Self {
         var mutableSelf = self
-        mutableSelf.rawValue[coordinate.y][coordinate.x] = tileKind
+        mutableSelf.rawValue[coordinate.y][coordinate.x] = tileKind.rawValue
         return mutableSelf
     }
 
-    func isCoordinate(_ coordinate: Coordinate, ofKind tileKind: String) -> Bool {
-        rawValue[coordinate.y][coordinate.x] == tileKind
+    func isCoordinate(_ coordinate: Coordinate, ofKind tileKind: Tile) -> Bool {
+        rawValue[coordinate.y][coordinate.x] == tileKind.rawValue
     }
 
     var pirateShipPosition: Coordinate {
@@ -79,10 +79,7 @@ struct Sea {
     }
 
     func isWithinSea(_ surrounding: Coordinate) -> Bool {
-        surrounding.y >= 0 && 
-        surrounding.y < height && 
-        surrounding.x >= 0 && 
-        surrounding.x < width
+        surrounding.y >= 0 && surrounding.y < height && surrounding.x >= 0 && surrounding.x < width
     }
 }
 
@@ -113,7 +110,7 @@ private func nextSea(for sea: Sea) -> Sea? {
                 ? currentNavyShipCoordinate.y + 1 : currentNavyShipCoordinate.y - 1
         )
         if sea.isWithinSea(nextNavyShipCoordinate) {
-            updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .emptyTile)
+            updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .empty)
                 .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
         }
     }
@@ -124,7 +121,7 @@ private func nextSea(for sea: Sea) -> Sea? {
 
     return
         updatedSea
-        .setting(coordinate: sea.pirateShipPosition, to: .emptyTile)
+        .setting(coordinate: sea.pirateShipPosition, to: .empty)
         .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
 }
 
