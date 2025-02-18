@@ -21,10 +21,12 @@ enum NavyShipDirection {
 }
 
 struct Sea {
-    private var rawValue: [[String]]
+    private var rawValue: [[Tile]]
 
     init(_ rawValue: [[String]]) {
-        self.rawValue = rawValue
+        self.rawValue = rawValue.map { row in
+            row.map { Tile(rawValue: $0)! }
+        }
         navyShipDirection = navyShipPosition?.y == 0 ? .TopToBottom : .BottomToTop
     }
 
@@ -40,12 +42,12 @@ struct Sea {
 
     func setting(coordinate: Coordinate, to tileKind: Tile) -> Self {
         var mutableSelf = self
-        mutableSelf.rawValue[coordinate.y][coordinate.x] = tileKind.rawValue
+        mutableSelf.rawValue[coordinate.y][coordinate.x] = tileKind
         return mutableSelf
     }
 
     func isCoordinate(_ coordinate: Coordinate, ofKind tileKind: Tile) -> Bool {
-        rawValue[coordinate.y][coordinate.x] == tileKind.rawValue
+        rawValue[coordinate.y][coordinate.x] == tileKind
     }
 
     var pirateShipPosition: Coordinate {
