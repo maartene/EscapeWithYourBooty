@@ -26,6 +26,12 @@ import Testing
             ["0", "0"],
             ["0", "N"],
         ],
+        [
+            ["X", "0", "0", "0", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "0", "N"],
+        ],
     ]) func aSeaWhereTheNavyCantReachUsIsSafe(sea: [[String]]) {
         #expect(isThisASafeRoute(in: .init(sea)) == true)
     }
