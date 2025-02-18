@@ -51,27 +51,23 @@ struct Sea {
     }
 
     var pirateShipPosition: Coordinate {
-        for y in 0..<self.height {
-            for x in 0..<self.width {
-                let shipPosition = Coordinate(x: x, y: y)
-                if self.isCoordinate(
-                    shipPosition,
-                    ofKind: .pirateShip
-                ) {
-                    return Coordinate(x: x, y: y)
-                }
-            }
+        guard let pirateShip = findCoordinateOf(type: .pirateShip) else {
+            fatalError("Expected pirateShipCoordinate")
         }
-        fatalError("Expected pirateShipCoordinate")
+        return pirateShip
     }
 
     var navyShipPosition: Coordinate? {
+        findCoordinateOf(type: .navyShip)
+    }
+
+    private func findCoordinateOf(type: Tile) -> Coordinate? {
         for y in 0..<self.height {
             for x in 0..<self.width {
                 let shipPosition = Coordinate(x: x, y: y)
                 if self.isCoordinate(
                     shipPosition,
-                    ofKind: .navyShip
+                    ofKind: type
                 ) {
                     return Coordinate(x: x, y: y)
                 }
