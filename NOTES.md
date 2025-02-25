@@ -128,5 +128,7 @@ X00N
     - ✅ A single patrolling ship leads to correct conclusions about safe ships.
 
 ## 🍅 Pomodoro 8 - Patrolling Navy Vessels
-    - ⚠️ Next step is to have the navyship change direction. The failing test is about this.
+    - ✅ Next step is to have the navyship change direction. The failing test is about this.
     
+## 🍅 Pomodoro 9 - Refactoring logic that is related to the navy ships into the NavyShip data type
+    - ⚠️ Implement NavyShip `updatePosition` function.

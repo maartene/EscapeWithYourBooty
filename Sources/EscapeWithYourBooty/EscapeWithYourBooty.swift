@@ -100,7 +100,7 @@ struct Sea {
             if isWithinSea(nextNavyShipCoordinate) {
                 updatedSea = updatedSea.setting(coordinate: navyShip.position, to: .empty)
                     .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
-                updatedSea.navyShip?.position = nextNavyShipCoordinate
+                    updatedSea.navyShip?.position = nextNavyShipCoordinate
             }
             
             updatedSea.navyShip?.determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: height)
@@ -162,6 +162,10 @@ struct NavyShip {
     init(position: Coordinate) {
         self.position = position
         self.direction = position.y == 0 ? .TopToBottom : .BottomToTop
+    }
+
+    mutating func updatePosition(seaHeight: Int) {
+        fatalError("Unimplemented")
     }
 
     mutating func determineDirection(currentPosition: Coordinate, seaHeight: Int) {
