@@ -30,7 +30,7 @@ struct Sea {
         }
 
         if let navyShipPosition {
-            navyShip = NavyShip(position: navyShipPosition, direction: navyShipPosition.y == 0 ? .TopToBottom : .BottomToTop)
+            navyShip = NavyShip(position: navyShipPosition)
         }
     }
 
@@ -161,9 +161,9 @@ struct NavyShip {
     private(set) var direction: NavyShipDirection
     private(set) var position: Coordinate
     
-    init(position: Coordinate, direction: NavyShipDirection) {
+    init(position: Coordinate) {
         self.position = position
-        self.direction = direction
+        self.direction = position.y == 0 ? .TopToBottom : .BottomToTop
     }
 
     mutating func determineDirection(currentPosition: Coordinate, seaHeight: Int) {
