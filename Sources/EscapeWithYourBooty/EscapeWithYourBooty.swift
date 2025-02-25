@@ -22,11 +22,15 @@ enum NavyShipDirection {
 
 struct Sea {
     private var rawValue: [[Tile]]
+    private var navyShip: NavyShip
 
     init(_ rawValue: [[String]]) {
         self.rawValue = rawValue.map { row in
             row.map { Tile(rawValue: $0)! }
         }
+        navyShip = NavyShip(direction: .BottomToTop)
+
+        navyShip = NavyShip(direction: navyShipPosition?.y == 0 ? .TopToBottom : .BottomToTop)
         navyShipDirection = navyShipPosition?.y == 0 ? .TopToBottom : .BottomToTop
     }
 
@@ -155,4 +159,13 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
         offsets
         .map { offset in Coordinate(x: shipPosition.x + offset.x, y: shipPosition.y + offset.y) }
         .filter { sea.isWithinSea($0) }
+}
+
+struct NavyShip {
+    let direction: NavyShipDirection
+    
+    init(direction: NavyShipDirection) {
+        self.direction = direction
+    }
+    
 }
