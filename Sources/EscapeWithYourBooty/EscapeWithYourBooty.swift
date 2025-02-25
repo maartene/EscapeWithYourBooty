@@ -94,17 +94,15 @@ struct Sea {
 
         var updatedSea = self
 
-        if let currentNavyShipCoordinate = navyShipPosition {
-            let nextNavyShipCoordinate = Coordinate(
-                x: currentNavyShipCoordinate.x,
-                y: navyShipDirection == .TopToBottom
-                    ? currentNavyShipCoordinate.y + 1 : currentNavyShipCoordinate.y - 1
-            )
-            if isWithinSea(nextNavyShipCoordinate) {
-                updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .empty)
-                    .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
-            }
+        if let navyShip {
+            let nextNavyShipCoordinate = navyShip.nextPosition 
 
+            if isWithinSea(nextNavyShipCoordinate) {
+                updatedSea = updatedSea.setting(coordinate: navyShip.position, to: .empty)
+                    .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
+                updatedSea.navyShip?.position = nextNavyShipCoordinate
+            }
+            
             updatedSea.navyShip?.determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: height)
         }
 
@@ -159,7 +157,7 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
 
 struct NavyShip {
     private(set) var direction: NavyShipDirection
-    private(set) var position: Coordinate
+    var position: Coordinate
     
     init(position: Coordinate) {
         self.position = position
@@ -174,6 +172,16 @@ struct NavyShip {
         if currentPosition.y == seaHeight - 1 {
             direction = .BottomToTop
         }
+    }
+
+    var nextPosition: Coordinate {
+        let nextNavyShipCoordinate = Coordinate(
+            x: position.x,
+            y: direction == .TopToBottom
+                ? position.y + 1 : position.y - 1
+        )
+
+        return nextNavyShipCoordinate
     }
     
 }
