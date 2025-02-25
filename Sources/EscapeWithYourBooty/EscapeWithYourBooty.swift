@@ -111,6 +111,10 @@ private func nextSea(for sea: Sea) -> Sea? {
             updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .empty)
                 .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
         }
+
+        if nextNavyShipCoordinate.y == 0 {
+            updatedSea.navyShipDirection = .TopToBottom
+        }
     }
 
     guard nextPirateShipCoordinate.x < sea.width else {

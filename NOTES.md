@@ -127,6 +127,6 @@ X00N
 ## 🍅 Pomodoro 7 - Patrolling Navy Vessels
     - ✅ A single patrolling ship leads to correct conclusions about safe ships.
 
-## 🍅 Pomodoro 7 - Patrolling Navy Vessels
+## 🍅 Pomodoro 8 - Patrolling Navy Vessels
     - ⚠️ Next step is to have the navyship change direction. The failing test is about this.
     
