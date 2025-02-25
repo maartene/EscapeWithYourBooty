@@ -84,6 +84,38 @@ struct Sea {
     func isWithinSea(_ surrounding: Coordinate) -> Bool {
         surrounding.y >= 0 && surrounding.y < height && surrounding.x >= 0 && surrounding.x < width
     }
+
+    func nextSea() -> Sea? {
+        let nextPirateShipCoordinate = Coordinate(
+            x: pirateShipPosition.x + 1,
+            y: pirateShipPosition.y
+        )
+
+        var updatedSea = self
+
+        if let currentNavyShipCoordinate = navyShipPosition {
+            let nextNavyShipCoordinate = Coordinate(
+                x: currentNavyShipCoordinate.x,
+                y: navyShipDirection == .TopToBottom
+                    ? currentNavyShipCoordinate.y + 1 : currentNavyShipCoordinate.y - 1
+            )
+            if isWithinSea(nextNavyShipCoordinate) {
+                updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .empty)
+                    .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
+            }
+
+            updatedSea.navyShip.determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: height)
+        }
+
+        guard nextPirateShipCoordinate.x < width else {
+            return nil
+        }
+
+        return
+            updatedSea
+            .setting(coordinate: pirateShipPosition, to: .empty)
+            .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
+    }   
 }
 
 func isThisASafeRoute(in sea: Sea) -> Bool {
@@ -91,43 +123,11 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
         return false
     }
 
-    if let upcomingSea = nextSea(for: sea) {
+    if let upcomingSea = sea.nextSea() {
         return isThisASafeRoute(in: upcomingSea)
     }
 
     return true
-}
-
-private func nextSea(for sea: Sea) -> Sea? {
-    let nextPirateShipCoordinate = Coordinate(
-        x: sea.pirateShipPosition.x + 1,
-        y: sea.pirateShipPosition.y
-    )
-
-    var updatedSea = sea
-
-    if let currentNavyShipCoordinate = sea.navyShipPosition {
-        let nextNavyShipCoordinate = Coordinate(
-            x: currentNavyShipCoordinate.x,
-            y: sea.navyShipDirection == .TopToBottom
-                ? currentNavyShipCoordinate.y + 1 : currentNavyShipCoordinate.y - 1
-        )
-        if sea.isWithinSea(nextNavyShipCoordinate) {
-            updatedSea = updatedSea.setting(coordinate: currentNavyShipCoordinate, to: .empty)
-                .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
-        }
-
-        updatedSea.navyShip.determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: sea.height)
-    }
-
-    guard nextPirateShipCoordinate.x < sea.width else {
-        return nil
-    }
-
-    return
-        updatedSea
-        .setting(coordinate: sea.pirateShipPosition, to: .empty)
-        .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
 }
 
 private func isSurroundingSafe(in sea: Sea) -> Bool {
