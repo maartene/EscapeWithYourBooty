@@ -22,19 +22,20 @@ enum NavyShipDirection {
 
 struct Sea {
     private var rawValue: [[Tile]]
-    var navyShip: NavyShip
+    var navyShip: NavyShip?
 
     init(_ rawValue: [[String]]) {
         self.rawValue = rawValue.map { row in
             row.map { Tile(rawValue: $0)! }
         }
-        navyShip = NavyShip(direction: .BottomToTop)
 
-        navyShip = NavyShip(direction: navyShipPosition?.y == 0 ? .TopToBottom : .BottomToTop)
+        if let navyShipPosition {
+            navyShip = NavyShip(position: navyShipPosition, direction: navyShipPosition.y == 0 ? .TopToBottom : .BottomToTop)
+        }
     }
 
     var navyShipDirection: NavyShipDirection {
-        navyShip.direction
+        navyShip?.direction ?? .BottomToTop
     }
 
     var width: Int {
@@ -104,7 +105,7 @@ struct Sea {
                     .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
             }
 
-            updatedSea.navyShip.determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: height)
+            updatedSea.navyShip?.determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: height)
         }
 
         guard nextPirateShipCoordinate.x < width else {
@@ -157,9 +158,11 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
 }
 
 struct NavyShip {
-    var direction: NavyShipDirection
+    private(set) var direction: NavyShipDirection
+    private(set) var position: Coordinate
     
-    init(direction: NavyShipDirection) {
+    init(position: Coordinate, direction: NavyShipDirection) {
+        self.position = position
         self.direction = direction
     }
 
