@@ -161,7 +161,7 @@ struct NavyShip {
         position = nextPosition
     }
 
-    mutating func determineDirection(currentPosition: Coordinate, seaHeight: Int) {
+    private mutating func determineDirection(currentPosition: Coordinate, seaHeight: Int) {
         if currentPosition.y == 0 {
             direction = .TopToBottom
         }
@@ -171,7 +171,7 @@ struct NavyShip {
         }
     }
 
-    var nextPosition: Coordinate {
+    private var nextPosition: Coordinate {
         let nextNavyShipCoordinate = Coordinate(
             x: position.x,
             y: direction == .TopToBottom
