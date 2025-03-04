@@ -153,13 +153,12 @@ struct NavyShip {
     }
 
     mutating func updatePosition(seaHeight: Int) {
-        let nextNavyShipCoordinate = nextPosition 
-
-        if nextNavyShipCoordinate.y >= 0 && nextNavyShipCoordinate.y < seaHeight {
-            position = nextNavyShipCoordinate
+        guard seaHeight > 1 else {
+            return 
         }
-        
-        determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: seaHeight)
+
+        determineDirection(currentPosition: position, seaHeight: seaHeight)
+        position = nextPosition
     }
 
     mutating func determineDirection(currentPosition: Coordinate, seaHeight: Int) {
