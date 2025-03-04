@@ -61,13 +61,6 @@ struct Sea {
         rawValue[coordinate.y][coordinate.x] == tileKind
     }
 
-    var pirateShipPosition: Coordinate {
-        guard let pirateShip = findCoordinateOf(type: .pirateShip) else {
-            fatalError("Expected pirateShipCoordinate")
-        }
-        return pirateShip
-    }
-
     private func findCoordinateOf(type: Tile) -> Coordinate? {
         for y in 0..<self.height {
             for x in 0..<self.width {
@@ -86,23 +79,20 @@ struct Sea {
     
 
     func nextSea() -> Sea? {
-        let nextPirateShipCoordinate = Coordinate(
-            x: pirateShipPosition.x + 1,
-            y: pirateShipPosition.y
-        )
-
         var updatedSea = self
 
         updatedSea.navyShip?.updatePosition(seaHeight: height)
 
-        guard nextPirateShipCoordinate.x < width else {
+        updatedSea.pirateShip.updatePosition() 
+
+        guard updatedSea.pirateShip.position.x < width else {
             return nil
         }
 
         return
             updatedSea
-            .setting(coordinate: pirateShipPosition, to: .empty)
-            .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
+//            .setting(coordinate: pirateShipPosition, to: .empty)
+//            .setting(coordinate: nextPirateShipCoordinate, to: .pirateShip)
     }   
 }
 
@@ -119,7 +109,7 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
 }
 
 private func isSurroundingSafe(in sea: Sea) -> Bool {
-    for surrounding in surroundings(of: sea.pirateShipPosition, in: sea) {
+    for surrounding in surroundings(of: sea.pirateShip.position, in: sea) {
         if sea.navyShip?.position == surrounding {
             return false
         }
