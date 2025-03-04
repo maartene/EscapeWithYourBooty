@@ -80,9 +80,7 @@ struct Sea {
         return nil
     }
 
-    func isWithinSea(_ surrounding: Coordinate) -> Bool {
-        surrounding.y >= 0 && surrounding.y < height && surrounding.x >= 0 && surrounding.x < width
-    }
+    
 
     func nextSea() -> Sea? {
         let nextPirateShipCoordinate = Coordinate(
@@ -127,6 +125,10 @@ private func isSurroundingSafe(in sea: Sea) -> Bool {
 }
 
 private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordinate] {
+    func isWithinSea(_ surrounding: Coordinate) -> Bool {
+        surrounding.y >= 0 && surrounding.y < sea.height && surrounding.x >= 0 && surrounding.x < sea.width
+    }
+
     let offsets: [Coordinate] = [
         .init(x: -1, y: -1),
         .init(x: -1, y: 0),
@@ -140,7 +142,7 @@ private func surroundings(of shipPosition: Coordinate, in sea: Sea) -> [Coordina
     return
         offsets
         .map { offset in Coordinate(x: shipPosition.x + offset.x, y: shipPosition.y + offset.y) }
-        .filter { sea.isWithinSea($0) }
+        .filter { isWithinSea($0) }
 }
 
 struct NavyShip {
