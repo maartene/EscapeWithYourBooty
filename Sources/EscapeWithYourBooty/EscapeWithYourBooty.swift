@@ -92,17 +92,7 @@ struct Sea {
 
         var updatedSea = self
 
-        if let navyShip {
-            let nextNavyShipCoordinate = navyShip.nextPosition 
-
-            if isWithinSea(nextNavyShipCoordinate) {
-                //updatedSea = updatedSea.setting(coordinate: navyShip.position, to: .empty)
-                //    .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
-                    updatedSea.navyShip?.position = nextNavyShipCoordinate
-            }
-            
-            updatedSea.navyShip?.determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: height)
-        }
+        updatedSea.navyShip?.updatePosition(seaHeight: height)
 
         guard nextPirateShipCoordinate.x < width else {
             return nil
@@ -163,7 +153,13 @@ struct NavyShip {
     }
 
     mutating func updatePosition(seaHeight: Int) {
-        fatalError("Unimplemented")
+        let nextNavyShipCoordinate = nextPosition 
+
+        if nextNavyShipCoordinate.y >= 0 && nextNavyShipCoordinate.y < seaHeight {
+            position = nextNavyShipCoordinate
+        }
+        
+        determineDirection(currentPosition: nextNavyShipCoordinate, seaHeight: seaHeight)
     }
 
     mutating func determineDirection(currentPosition: Coordinate, seaHeight: Int) {
