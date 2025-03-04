@@ -11,7 +11,7 @@ enum Tile: String {
 }
 
 struct Coordinate {
-    let x: Int
+    var x: Int
     let y: Int
 }
 
@@ -25,11 +25,14 @@ enum NavyShipDirection {
 struct Sea {
     private var rawValue: [[Tile]]
     var navyShip: NavyShip?
+    var pirateShip = PirateShip()
 
     init(_ rawValue: [[String]]) {
         self.rawValue = rawValue.map { row in
             row.map { Tile(rawValue: $0)! }
         }
+
+        self.pirateShip.position = findCoordinateOf(type: .pirateShip)!
 
         if let navyShipPosition = findCoordinateOf(type: .navyShip) {
             navyShip = NavyShip(position: navyShipPosition)

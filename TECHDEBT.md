@@ -2,6 +2,7 @@
 
 ## ⚠️ TODO
 - nextSea(for: Sea) will likely cause bugs later since it overides the previous location of the ship to .emptyTile while it could also be needed for navy ships.
+- Coordinate should be immutable
 
 * Guard on sea bounds is duplicated to multiple places
 * Deduplicate finding a ship (navy or pirate)
