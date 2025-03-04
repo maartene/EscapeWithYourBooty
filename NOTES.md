@@ -132,5 +132,7 @@ X00N
     
 ## 🍅 Pomodoro 9 - Refactoring logic that is related to the navy ships into the NavyShip data type
     - ✅ Implement NavyShip `updatePosition` function.
+
+## 🍅 Pomodoro 10
     - ⚠️ Extract datatypes into own files
     - ⚠️ Extract PirateShip into its own type
