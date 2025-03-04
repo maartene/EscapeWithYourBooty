@@ -15,6 +15,8 @@ struct Coordinate {
     let y: Int
 }
 
+extension Coordinate: Equatable { }
+
 enum NavyShipDirection {
     case TopToBottom
     case BottomToTop
@@ -63,10 +65,6 @@ struct Sea {
         return pirateShip
     }
 
-    private var navyShipPosition: Coordinate? {
-        nil
-    }
-
     private func findCoordinateOf(type: Tile) -> Coordinate? {
         for y in 0..<self.height {
             for x in 0..<self.width {
@@ -98,8 +96,8 @@ struct Sea {
             let nextNavyShipCoordinate = navyShip.nextPosition 
 
             if isWithinSea(nextNavyShipCoordinate) {
-                updatedSea = updatedSea.setting(coordinate: navyShip.position, to: .empty)
-                    .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
+                //updatedSea = updatedSea.setting(coordinate: navyShip.position, to: .empty)
+                //    .setting(coordinate: nextNavyShipCoordinate, to: .navyShip)
                     updatedSea.navyShip?.position = nextNavyShipCoordinate
             }
             
@@ -131,7 +129,7 @@ func isThisASafeRoute(in sea: Sea) -> Bool {
 
 private func isSurroundingSafe(in sea: Sea) -> Bool {
     for surrounding in surroundings(of: sea.pirateShipPosition, in: sea) {
-        if sea.isCoordinate(surrounding, ofKind: .navyShip) {
+        if sea.navyShip?.position == surrounding {
             return false
         }
     }
