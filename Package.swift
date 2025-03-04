@@ -12,9 +12,11 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "EscapeWithYourBooty",
-            dependencies: []),
+            dependencies: []
+            ),
         .testTarget(
             name: "EscapeWithYourBootyTests",
-            dependencies: ["EscapeWithYourBooty"]),
+            dependencies: ["EscapeWithYourBooty"]
+            ),
     ]
 )

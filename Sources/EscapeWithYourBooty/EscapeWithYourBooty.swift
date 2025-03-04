@@ -29,7 +29,7 @@ struct Sea {
             row.map { Tile(rawValue: $0)! }
         }
 
-        if let navyShipPosition {
+        if let navyShipPosition = findCoordinateOf(type: .navyShip) {
             navyShip = NavyShip(position: navyShipPosition)
         }
     }
@@ -63,8 +63,8 @@ struct Sea {
         return pirateShip
     }
 
-    var navyShipPosition: Coordinate? {
-        findCoordinateOf(type: .navyShip)
+    private var navyShipPosition: Coordinate? {
+        nil
     }
 
     private func findCoordinateOf(type: Tile) -> Coordinate? {
